@@ -15,7 +15,10 @@ export default class SubmitComponent extends React.Component {
     let reader = new FileReader()
     reader.readAsDataURL(files[0])
     reader.onload = (e) => {
-      // console.warn('img data', e.target.result)
+      console.warn('img data', e.target.result)
+      this.setState({
+        resultat: "Attendez quelque seconde c'est en cour de traitement..."
+      })
       this.setState({
         file: e.target.result
       })
@@ -30,6 +33,10 @@ export default class SubmitComponent extends React.Component {
           this.setState({
             resultat: res["data"]
           })
+        }).catch(e =>{
+          this.setState({
+            resultat: "erreur dans le code python :o"
+          })
         })
         console.log(this.state)
     }
@@ -43,7 +50,7 @@ export default class SubmitComponent extends React.Component {
           name="file" 
           id="file" 
           onChange={(e) => this.onChange(e)} 
-          accept=".wav,.mp3"/>
+          accept=".wav,.mp3,.raw"/>
         <p>
           Resultat : {this.state.resultat}
         </p>
